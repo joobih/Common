@@ -4,6 +4,8 @@
 import re  
 import hashlib
 import uuid
+import random
+from random import randint
 from urlparse import urlparse
 from datetime import datetime
 
@@ -55,4 +57,15 @@ def get_md5(data):
     m2.update(data)
     md5_str = m2.hexdigest()
     return md5_str
+
+"""
+    随机获取从[start -> end)之间的n个不相同的整数,若n比该区间大,就返回该区间打乱顺序的随机数
+"""
+def get_randints(start,end,n):
+    data = [i for i in range(start,end)]
+    random.shuffle(data)
+    if n > end - start:
+        return data
+    else:
+        return data[:n]
 
