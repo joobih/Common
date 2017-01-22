@@ -8,7 +8,7 @@ from urlparse import urlparse
 from datetime import datetime
 
 """
-    将url字符串参数进行检查,是否是合法的url字符串,True代表是,False代表否
+    将url字符串进行检查,返回是否是合法的url字符串,True代表是,False代表否
 """
 def is_normal_url(url):      
     if re.match(r'^https?:/{2}\w.+$', url):  
@@ -16,9 +16,8 @@ def is_normal_url(url):
     else:  
         return False
 
-
 """
-    将参数url进行分解,返回使用的协议,主机名,端口号,路径等
+    将url进行分解,返回该url使用的协议,主机名,端口号,路径
 """
 def analysis_url(url):
     u = urlparse(url)
@@ -36,7 +35,7 @@ def analysis_url(url):
 
 
 """
-    如果你想要一个完全不同的文件名不妨试试它,传入一个想要的文件类型
+    如果你想要一个完全不同的文件名不妨试试它,传入一个指定的文件类型
 """
 def get_file_name(file_type):
     uid = uuid.uuid4()
@@ -45,13 +44,11 @@ def get_file_name(file_type):
     t = t[:19]
     file_name = t + "_" + str(uid)
     file_name = file_name.replace(" ","_").replace(".","_").replace(":","_").replace("-","_") + ".{type_}".format(type_ = file_type)
-    db_file = file_name
-    file_name = setting.SERVER_PATH + file_name
-    return db_file,file_name
+    return file_name
 
 
 """
-    将data字符串的数据转换为md5字符串
+    将data字符串进行md5字符串并返回
 """
 def get_md5(data):
     m2 = hashlib.md5()
