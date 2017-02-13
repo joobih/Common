@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+"""
+    celery -A celery_test worker --loglevel=info 
+"""
+
 import time
 from celery import Celery
 

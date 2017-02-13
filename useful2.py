@@ -12,4 +12,6 @@ def checkip(ip):
     if p.match(ip):  
         return True  
     else:  
-        return False 
+        return False
+ip = "1.1.1"
+print checkip(ip)
