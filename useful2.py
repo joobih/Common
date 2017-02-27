@@ -13,5 +13,19 @@ def checkip(ip):
         return True  
     else:  
         return False
+
+"""
+    判断字符串是否是合理的电话号码
+"""
+def is_legal_phone(phone):
+    prefix = [130,131,132,133,134,135,136,137,138,139,145,147,150,151,152,153,155,156,157,158,159,176,177,178,180,181,182,183,184,185,186,187,188,189]
+    if len(phone) != 11: 
+        return -1
+    if phone.isdigit():
+        if int(phone[:3]) in prefix:
+            return 0
+    else:
+        return -2
+
 ip = "1.1.1"
 print checkip(ip)
