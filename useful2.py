@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import re
-
+import time
 
 """
     判断ip是否是正确的ip地址True--是ip地址,False--不是ip地址
@@ -26,6 +26,14 @@ def is_legal_phone(phone):
             return 0
     else:
         return -2
+
+"""
+    将时间戳转换为日期字符串,时间戳为精确到秒的整数
+"""
+def revert_to_str(t):
+    _t = time.localtime(t)
+    str_t = time.strftime("%Y-%m-%d",_t)
+    return str_t
 
 ip = "1.1.1"
 print checkip(ip)
