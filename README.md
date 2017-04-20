@@ -43,3 +43,7 @@
     get_gender_from_idcard:
         通过身份证号获取性别 -1---身份证号不正确;1---表示男;2---表示女
 
+4.word_cut.py
+
+    word_cut:
+        将字符串content按照model模式分词 model 分别有全模式(all) ,精确模式(accurate),搜索引擎模式(search_engine)三种
