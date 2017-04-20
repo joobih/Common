@@ -30,10 +30,21 @@ def is_legal_phone(phone):
 """
     将时间戳转换为日期字符串,时间戳为精确到秒的整数
 """
-def revert_to_str(t):
+def revert_to_str(t,div = '-'):
     _t = time.localtime(t)
-    str_t = time.strftime("%Y-%m-%d",_t)
+    str_t = time.strftime("%Y{}%m{}%d %H:%M:%S".format(div,div),_t)
     return str_t
 
-ip = "1.1.1"
-print checkip(ip)
+"""
+    将日期字符串转换为时间戳
+"""
+def revert_to_timestamp(date,div = '-'):
+    _t = time.strptime(date,"%Y{}%m{}%d %H:%M:%S".format(div,div))
+    print _t
+    time_stamp = time.mktime(_t)
+    return time_stamp
+
+date = "2017-03-01 2:01:00"
+t = revert_to_timestamp(date)
+print t
+print revert_to_str(t,'/')

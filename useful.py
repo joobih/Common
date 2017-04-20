@@ -37,7 +37,7 @@ def analysis_url(url):
 
 
 """
-    如果你想要一个完全不同的文件名不妨试试它,传入一个指定的文件类型
+    根据file_type生成一个唯一的文件名
 """
 def get_file_name(file_type):
     uid = uuid.uuid4()
@@ -50,7 +50,7 @@ def get_file_name(file_type):
 
 
 """
-    将data字符串进行md5字符串并返回
+    将data字符串进行md5并返回
 """
 def get_md5(data):
     m2 = hashlib.md5()
