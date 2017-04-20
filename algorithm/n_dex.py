@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+
 """
     输入一个10进制数和N，输出N进制数表示法 1<=N<=36
 """

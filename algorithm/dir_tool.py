@@ -2,7 +2,6 @@
 # coding=utf-8
 import os
 import os.path
-rootdir = "/opt"                                   # 指明被遍历的文件夹
 
 def list_dir(rootdir):
     if not os.path.isdir(rootdir):
@@ -16,5 +15,6 @@ def list_dir(rootdir):
             print sub
         list_dir(sub)
 
+rootdir = "/opt"                                   # 指明被遍历的文件夹
 list_dir(rootdir)
 

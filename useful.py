@@ -19,6 +19,21 @@ def is_normal_url(url):
         return False
 
 """
+    使用正则表达式获取字符串content中包含的所有的url
+"""
+def paser_urls(content):
+    urlParttern = r'https?://[\w\-\/]+[\.[\w\-\/]+]*'
+    pattern = re.compile(urlParttern)
+    urls = re.findall(pattern,content,0)
+    return urls
+
+content = """
+    http://baidu.com https://www.baidu.com/a.jpg  
+"""
+urls = paser_urls(content)
+print urls
+
+"""
     将url进行分解,返回该url使用的协议,主机名,端口号,路径
 """
 def analysis_url(url):

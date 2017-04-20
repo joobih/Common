@@ -6,6 +6,9 @@
     is_normal_url:
         将url字符串进行检查,返回是否是合法的url字符串,True代表是,False代表否
 
+    paser_urls:
+        使用正则表达式获取字符串content中包含的所有的url
+
     analysis_url:
         将url进行分解,返回该url使用的协议,主机名,端口号,路径
 
