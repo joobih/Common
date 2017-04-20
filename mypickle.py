@@ -2,7 +2,6 @@
 # coding=utf-8
 
 import cPickle as pickle
-from mybase64 import myBase64
 
 """
     将一个Python对象序列化和反序列化
@@ -32,6 +31,7 @@ class myPickle():
             return None
 
 if __name__ == "__main__":
+    from mybase64 import myBase64
     p = myPickle()
     l = [1,2,3,4,"sraf"]
     import requests
