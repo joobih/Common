@@ -28,7 +28,7 @@ def paser_urls(content):
     return urls
 
 content = """
-    http://baidu.com https://www.baidu.com/a.jpg  
+    http://baidu.com https://www.baidu.com/a.jpg ["http://127.0.0.1/admin/a.png"] 
 """
 urls = paser_urls(content)
 print urls

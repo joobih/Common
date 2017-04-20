@@ -35,4 +35,11 @@
     revert_to_timestamp:
         将日期字符串转换为时间戳
 
+3.idcard.py
+
+    get_age_from_idcard:
+        通过身份证号计算年龄 [23,9,2]--23岁,9个月2天
+
+    get_gender_from_idcard:
+        通过身份证号获取性别 -1---身份证号不正确;1---表示男;2---表示女
 
