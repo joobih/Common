@@ -56,7 +56,7 @@ class RQConsumer(object):
         rq_queue: rabbitmq的消息队列名
         kwags: 可变参数
 """
-def TestConsumer(Consumer,rq_queue,rq_host,rq_port,kwags):
+def TestConsumer(Consumer,rq_queue,rq_host,rq_port,kwags={}):
     consumer = Consumer(rq_queue,rq_host,rq_port,kwags)
     consumer.start(consumer.callback)
 
