@@ -33,7 +33,6 @@ class RQConsumer(object):
     def callback(self,ch,method,properties,body):
         try:
 #            print("Process is running at pid %s;data:%s" % (os.getpid(),body))
-            data = json.loads(body)
             self.data_process(data)
             #消息处理完成可以通知到队列完成了处理
             ch.basic_ack(delivery_tag = method.delivery_tag)
