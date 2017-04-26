@@ -34,7 +34,7 @@ class RQConsumer(object):
         try:
             print("Process is running at pid %s;data:%s" % (os.getpid(),body))
             data = json.loads(body)
-            self.spider(data)
+            self.data_process(data)
             #消息处理完成可以通知到队列完成了处理
             ch.basic_ack(delivery_tag = method.delivery_tag)
             #在此处理每条消息
