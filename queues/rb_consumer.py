@@ -67,7 +67,7 @@ def TestConsumer(Consumer,rq_queue,rq_host,rq_port,kwags={}):
         process_num: 开启的进程数量，默认以机器支持的cpu个数为参数
         kwags: 可变参数
 """
-def multi_consumer(Consumer,rq_host,rq_port,rq_queue,process_num = 0,kwags = {}):
+def multi_consumer(Consumer,rq_queue,rq_host,rq_port,process_num = 0,kwags = {}):
     try:
         p = multiprocessing.cpu_count()
         if process_num != 0:
