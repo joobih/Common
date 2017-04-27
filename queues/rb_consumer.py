@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import os
 import pika
 import multiprocessing
-import json
 
 """
     rabbitmq 消费者,接受指定topic中的数据，子类通过继承它才能够使用，只需实现data_process函数进行数据的处理
@@ -76,7 +74,7 @@ def multi_consumer(Consumer,rq_host,rq_port,rq_queue,process_num = 0,kwags = {})
             p = process_num
         pool = multiprocessing.Pool(processes = p)
         for i in xrange(p):
-            pool.apply_async(TestConsumer,(Consumer,rq_host,rq_port,rq_queue,kwags))
+            pool.apply_async(TestConsumer,(Consumer,rq_queue,rq_host,rq_port,kwags))
         pool.close()
         pool.join()
         print "done"
