@@ -17,8 +17,8 @@ class RQConsumer(object):
             #如果没有队列就创建
             self.channel.queue_declare(queue = rq_queue,durable = True)
             self.queue = rq_queue
-        except Exception,e:
-            print "RQConsumer __init__ occure a Exception:{}".format(e)
+        except Exception as e:
+            print("RQConsumer __init__ occure a Exception:{}".format(e))
             return
 
     """
@@ -36,11 +36,11 @@ class RQConsumer(object):
             ch.basic_ack(delivery_tag = method.delivery_tag)
             #在此处理每条消息
 
-        except Exception,e:
-            print "occure a Exception:{}".format(e)
+        except Exception as e:
+            print("occure a Exception:{}".format(e))
     
     def start(self,_call_back):
-        print "start consumer..."
+        print("start consumer...")
         self.channel.basic_consume(_call_back,queue = self.queue)
         self.channel.start_consuming()
 
@@ -77,7 +77,7 @@ def multi_consumer(Consumer,rq_queue,rq_host,rq_port,process_num = 0,kwags = {})
             pool.apply_async(TestConsumer,(Consumer,rq_queue,rq_host,rq_port,kwags))
         pool.close()
         pool.join()
-        print "done"
-    except Exception,e:
-        print "Caught KeyboardInterrupt, terminating workers",e
+        print("done")
+    except Exception as e:
+        print("Caught KeyboardInterrupt, terminating workers",e)
         return
