@@ -25,9 +25,9 @@ def b64decode(b64):
         print "b64decode occure a Exception:{}".format(e)
         return None
 
-if __name__ == "__main__":
-    a = "测试代码"
-    c = b64encode(a)
-    d = b64decode(c)
-    print c
-    print d
+#if __name__ == "__main__":
+#    a = "测试代码"
+#    c = b64encode(a)
+#    d = b64decode(c)
+#    print(c)
+#    print(d)
