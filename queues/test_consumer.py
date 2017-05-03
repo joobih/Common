@@ -2,6 +2,8 @@
 # coding=utf-8
 
 import time
+import asyncio
+from aiohttp import ClientSession
 from rb_consumer import RQConsumer,multi_consumer,TestConsumer
 
 class test(RQConsumer):
@@ -11,8 +13,8 @@ class test(RQConsumer):
         RQConsumer.__init__(self,rq_queue,rq_host,rq_port,kwags)
 
     def data_process(self,data):
-        print data
-        time.sleep(2)
+        print(data)
+#        time.sleep(2)
 #        if len(self.datas) < 10:
 #            self.datas.append(data)
 #        else:            
