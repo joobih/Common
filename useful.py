@@ -30,8 +30,8 @@ def paser_urls(content):
 content = """
     http://baidu.com https://www.baidu.com/a.jpg ["http://127.0.0.1/admin/a.png"] 
 """
-urls = paser_urls(content)
-print urls
+#urls = paser_urls(content)
+#print(urls)
 
 """
     将url进行分解,返回该url使用的协议,主机名,端口号,路径

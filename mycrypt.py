@@ -36,7 +36,7 @@ if __name__ == '__main__':
     pc = myCrypt('keyskeyskeyskeys')      #初始化密钥
     e = pc.encrypt("test")
     d = pc.decrypt(e)                     
-    print e, d
+    print(e, d)
     e = pc.encrypt("00000000000000000000000000")
     d = pc.decrypt(e)                  
-    print e, d 
+    print(e, d)

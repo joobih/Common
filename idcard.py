@@ -27,8 +27,8 @@ def get_age_from_idcard(id_no):
             mon = mon + 12
             year = year -1
         return (year, mon, day)
-    except Exception,e:
-        print "occure a exception:{}".format(e)
+    except Exception as e:
+        print("occure a exception:{}".format(e))
         return None
 
 
@@ -43,10 +43,10 @@ def get_gender_from_idcard(id_no):
         if int(id16_17) & 0x01 != 0:
             return 1
         return 2
-    except Exception,e:
-        print "occure a exception:{}".format(e)
+    except Exception as e:
+        print("occure a exception:{}".format(e))
         return None
 
 #dcard = "532015192304207733"
-#print get_age_from_idcard(dcard)
-#print get_gender_from_idcard(dcard)
+#print(get_age_from_idcard(dcard))
+#print(get_gender_from_idcard(dcard))

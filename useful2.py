@@ -40,11 +40,11 @@ def revert_to_str(t,div = '-'):
 """
 def revert_to_timestamp(date,div = '-'):
     _t = time.strptime(date,"%Y{}%m{}%d %H:%M:%S".format(div,div))
-    print _t
+    print(_t)
     time_stamp = time.mktime(_t)
     return time_stamp
 
-date = "2017-03-01 2:01:00"
-t = revert_to_timestamp(date)
-print t
-print revert_to_str(t,'/')
+#date = "2017-03-01 2:01:00"
+#t = revert_to_timestamp(date)
+#print(t)
+#print(revert_to_str(t,'/'))

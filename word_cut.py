@@ -16,20 +16,20 @@ def word_cut(content,model = "accurate"):
     elif model == "search_engine":
         seg_content = jieba.cut_for_search(content)
     else:
-        print "不支持这种模式",model
+        print("不支持这种模式",model)
         return ""
-#print ", ".join(seg_content)
+#print(", ".join(seg_content))
     seg = []
     for s in seg_content:
         seg.append(s)
 #    seg = ", ".join(seg_content)
     for s in seg:
-        print s
+        print(s)
     return seg
 
 content = """
 开发者可以指定自己自定义的词典，以便包含jieba词库里没有的词。虽然jieba有新词识别能力，但是自行添加新词可以保证更高的正确率 
 """
-print word_cut(content)
-print word_cut(content,model = "all")
-print word_cut(content,model = "search_engine")
+print(word_cut(content))
+print(word_cut(content,model = "all"))
+print(word_cut(content,model = "search_engine"))

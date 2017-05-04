@@ -14,10 +14,10 @@ class myPickle():
     def dumps(self,obj):
         try:
             s = pickle.dumps(obj)
-#            print s,type(s)
+#            print(s,type(s))
             return s
-        except Exception,e:
-            print "dumps occure a Exception:{}".format(e)
+        except Exception as e:
+            print("dumps occure a Exception:{}".format(e))
             return None
 
     #将字符串反序列化为Python对象
@@ -26,8 +26,8 @@ class myPickle():
             obj = pickle.loads(s)
 #            print obj,type(obj)
             return obj
-        except Exception,e:
-            print "loads occure a Exception:{}".format(e)
+        except Exception as e:
+            print("loads occure a Exception:{}".format(e))
             return None
 
 if __name__ == "__main__":
@@ -42,5 +42,5 @@ if __name__ == "__main__":
     e = c.b64decode(d)
 #    c_str = cy.encrypt(e)
     f = p.loads(e)
-    print f
+    print(f)
     p.loads(s)

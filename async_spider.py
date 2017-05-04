@@ -7,13 +7,22 @@ import json
 from urllib import parse
 from aiohttp import ClientSession
 
+
+"""
+假设url_info的结构如下
+{
+    "url":"http://a.com",
+    "extra":"other infos",
+}
+最后返回一个新的url_info json对象增加content 字段表示抓取到的结果 内容
+"""
 async def _get_content(url_info):
     print(url_info)
     async with ClientSession() as session:
         url = url_info["url"]
         async with session.get(url) as r:
             response = await r.read()
-            url_info["pics"] = response
+            url_info["content"] = response
             return url_info
 
 async def _get_contents(loop,urls_info):
