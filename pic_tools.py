@@ -20,5 +20,4 @@ def paser_pic(b64_pics,smaller = 1):
         return (width,height,b64_small_pic)
     return (width,height,b64_pics)
 
-p = ""
 
