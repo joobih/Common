@@ -3,10 +3,8 @@
 
 import sys
 if sys.version > '3':
-    print("py3")
     from io import StringIO as cStringIO
 else:
-    print("py2")
     import cStringIO
 from PIL import Image
 import base64

@@ -3,16 +3,13 @@
 
 import sys
 if sys.version > '3':
-    print("py3")
     from urllib.parse import urlparse
 else:
-    print("py2")
     from urlparse import urlparse
 import re  
 import hashlib
 import uuid
 import random
-#from urlparse import urlparse
 from datetime import datetime
 
 """
@@ -33,12 +30,6 @@ def paser_urls(content):
     urls = re.findall(pattern,content,0)
     return urls
 
-content = """
-    http://baidu.com https://www.baidu.com/a.jpg ["http://127.0.0.1/admin/a.png"] 
-"""
-#urls = paser_urls(content)
-#print(urls)
-
 """
     将url进行分解,返回该url使用的协议,主机名,端口号,路径
 """
@@ -56,7 +47,6 @@ def analysis_url(url):
     }
     return result
 
-print(analysis_url("http://www.baidu.com"))
 
 """
     根据file_type生成一个唯一的文件名

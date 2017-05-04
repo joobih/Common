@@ -44,7 +44,3 @@ def revert_to_timestamp(date,div = '-'):
     time_stamp = time.mktime(_t)
     return time_stamp
 
-#date = "2017-03-01 2:01:00"
-#t = revert_to_timestamp(date)
-#print(t)
-#print(revert_to_str(t,'/'))
