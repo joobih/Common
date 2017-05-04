@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import sys
+if sys.version > '3':
+    print("py3")
+    from urllib.parse import urlparse
+else:
+    print("py2")
+    from urlparse import urlparse
 import re  
 import hashlib
 import uuid
 import random
-from random import randint
-from urlparse import urlparse
+#from urlparse import urlparse
 from datetime import datetime
 
 """
@@ -50,6 +56,7 @@ def analysis_url(url):
     }
     return result
 
+print(analysis_url("http://www.baidu.com"))
 
 """
     根据file_type生成一个唯一的文件名
