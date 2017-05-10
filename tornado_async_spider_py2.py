@@ -12,22 +12,33 @@ def single_spider(url_info = {}):
     url = url_info["url"]
     http_client = tornado.httpclient.AsyncHTTPClient()
     response = yield http_client.fetch(url, raise_error = False)
-    yield response.body
-    return
-#    raise gen.Return(response.body)
-       
-@gen.coroutine
-def async_spider(url_infos = []):
-    if url_infos == []:
-        return None
+#    yield response.body
+#    return
+    raise gen.Return(response)
+
+def run(user_infos = []):
+    for u in user_infos:
+        result = tornado.ioloop.IOLoop.current().run_sync(single_spider,url_info = u)
+        print result
+    
+
+#@gen.coroutine
+#def async_spider(url_infos = []):
+#    if url_infos == []:
+#        return None
 #    tasks = []
-    for url_info in url_infos:
-        response = yield single_spider(url_info)
-        yield response.body
+#    print url_infos
+#    for url_info in url_infos:
+#        response = single_spider(url_info)
+#        print response.body
+#        yield response.body
 #        tasks.append(response.body)
 
 #    raise gen.Return(tasks)
 
 url_infos = [{"url":"http://www.baidu.com"},]
-result = tornado.ioloop.IOLoop.current().run_sync(async_spider,url_infos = url_infos)
-print(result)
+for u in range(0,10):
+    url_infos.append({"url":"http://www.baidu.com"})
+run(url_infos)
+#result = tornado.ioloop.IOLoop.current().run_sync(async_spider,url_infos = url_infos)
+#print(result)
