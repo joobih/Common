@@ -49,5 +49,9 @@ def revert_to_timestamp(date,div = '-'):
     讲字符串中包含有\u1234 字符的替换为原来的中文
 """
 def unicode_to_gbk(u_str):
-    result = json.loads('{"str":"%s"}' % u_str)
-    return result["str"]
+    result = json.loads('{"str":"###@@@%s@@@###"}' % u_str)
+    result = json.dumps(result,ensure_ascii = False)
+    a = result.find("###@@@")
+    b = result.find("@@@###")
+    print result[a+6:b]
+    return result[a+6:b]

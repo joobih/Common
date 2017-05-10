@@ -2,10 +2,6 @@
 # coding=utf-8
 
 import sys
-if sys.version > '3':
-    from io import StringIO as cStringIO
-else:
-    import cStringIO
 from PIL import Image
 import base64
 
@@ -15,13 +11,32 @@ import base64
         smaller:图片缩小比例，取值范围为(0,1]
 """
 def paser_pic(b64_pics,smaller = 1):
-    string_data = cStringIO.StringIO(b64_pics)
-    im = Image.open(string_data)
-    width,height = im.size
-    if smaller != 1:
-        small_img = im.resize((int(width*smaller), int(height*smaller)),Image.ANTIALIAS)
-        b64_small_pic = base64.b64encode(small_img.getvalue())
-        return (width,height,b64_small_pic)
-    return (width,height,b64_pics)
+    if sys.version < '3':
+        from cStringIO import StringIO
+        b64_pics = base64.b64decode(b64_pics)
+        string_data = StringIO(b64_pics)
+        im = Image.open(string_data)
+        width,height = im.size
+        if smaller != 1:
+            small_img = im.resize((int(width*smaller), int(height*smaller)),Image.ANTIALIAS)
+            b64_small_pic = base64.b64encode(small_img.getvalue())
+            return (width,height,b64_small_pic)
+        return (width,height,b64_pics)
+    else:
+        from io import BytesIO
+        b64_pics = base64.b64decode(b64_pics)
+        bytes_data = BytesIO(b64_pics)
+        print(bytes_data,type(bytes_data))
+        im = Image.open(bytes_data)
+        width,height = im.size
+        if smaller != 1:
+            small_img = im.resize((int(width*smaller), int(height*smaller)),Image.ANTIALIAS)
+            b64_small_pic = base64.b64encode(small_img.getvalue())
+            return (width,height,b64_small_pic)
+        return (width,height,b64_pics)
 
-
+#f = "a.jpg"
+#b = open(f,"rb")
+#c = b.read()
+#pic = base64.b64encode(c)
+#print(paser_pic(pic))
