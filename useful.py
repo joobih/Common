@@ -51,7 +51,7 @@ def analysis_url(url):
 """
     根据file_type生成一个唯一的文件名
 """
-def get_file_name(file_type):
+def get_file_name(file_type = "jpg"):
     uid = uuid.uuid4()
     t = datetime.now()
     t = str(t)
