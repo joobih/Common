@@ -4,41 +4,39 @@ from tornado import gen
 import tornado.httpclient
 import tornado.ioloop
 
+@gen.coroutine
+def _get_content(url_info):
+    http_client = tornado.httpclient.AsyncHTTPClient()
+    response = yield http_client.fetch(url_info["url"])
+    url_info["content"] = response.body
+    raise gen.Return(url_info)
 
 @gen.coroutine
-def single_spider(url_info = {}):
-    if url_info == {}:
+def _get_contents(url_infos = []):
+    if url_infos == []:
         raise gen.Return(None)
-    url = url_info["url"]
-    http_client = tornado.httpclient.AsyncHTTPClient()
-    response = yield http_client.fetch(url, raise_error = False)
-#    yield response.body
-#    return
-    raise gen.Return(response)
+    responses = yield [_get_content(url) for url in url_infos ]
+    raise gen.Return(responses)
 
-def run(user_infos = []):
-    for u in user_infos:
-        result = tornado.ioloop.IOLoop.current().run_sync(single_spider,url_info = u)
-        print result
-    
+def async_spider(url_infos):
+    results = []
+    while len(url_infos) > 20:
+        task_urls = url_infos[:20]
+        result = tornado.ioloop.IOLoop.current().run_sync(_get_contents,url_infos = task_urls)
+        url_infos = url_infos[20:]
+        results.extend(result)
+    result = tornado.ioloop.IOLoop.current().run_sync(_get_contents,url_infos = url_infos)
+    results.extend(result)
+    return results
 
-#@gen.coroutine
-#def async_spider(url_infos = []):
-#    if url_infos == []:
-#        return None
-#    tasks = []
-#    print url_infos
-#    for url_info in url_infos:
-#        response = single_spider(url_info)
-#        print response.body
-#        yield response.body
-#        tasks.append(response.body)
-
-#    raise gen.Return(tasks)
-
-url_infos = [{"url":"http://www.baidu.com"},]
-for u in range(0,10):
-    url_infos.append({"url":"http://www.baidu.com"})
-run(url_infos)
-#result = tornado.ioloop.IOLoop.current().run_sync(async_spider,url_infos = url_infos)
-#print(result)
+#import time
+#t = time.time()
+#url = {"url":"http://www.baidu.com"}
+#url_infos = []
+#for u in range(0,10):
+#    url_infos.append(url)
+#result = async_spider(url_infos)
+#for r in result:
+#    print(r)
+#b = time.time()
+#print(b-t)

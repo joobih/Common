@@ -25,19 +25,25 @@ async def _get_content(url_info):
             url_info["content"] = response
             return url_info
 
-async def _get_contents(loop,urls_info):
+async def _get_contents(loop,url_infos):
     tasks = []
-    for url_info in urls_info:
+    for url_info in url_infos:
         future = asyncio.ensure_future(_get_content(url_info))
         tasks.append(future)
     responses = await asyncio.gather(*tasks)
     return responses
 
-def async_spider(urls_info):
+def async_spider(url_infos):
     loop = asyncio.get_event_loop()
-#    future = asyncio.ensure_future(_get_contents(loop,urls_info))
-#    return loop.run_until_complete(future)
-    return loop.run_until_complete(_get_contents(loop,urls_info))
+    results = []
+    while len(url_infos) > 20:
+        task_urls = url_infos[:20]
+        result = loop.run_until_complete(_get_contents(loop,task_urls))
+        url_infos = url_infos[20:]
+        results.extend(result)
+    result = loop.run_until_complete(_get_contents(loop,url_infos))
+    results.extend(result)
+    return results
 
 #urls_info = [{"url":"http://img1.3lian.com/2015/w7/85/d/21.jpg"},{"url":"http://img0.imgtn.bdimg.com/it/u=246912836,1223468464&fm=23&gp=0.jpg"},{"url":"http://pic.58pic.com/58pic/13/71/40/95P58PICtdF_1024.jpg"}]
 #result = async_spider(urls_info)
