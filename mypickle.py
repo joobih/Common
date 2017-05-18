@@ -8,32 +8,30 @@ import cPickle as pickle
     可以将一个Python对象序列化后的字符串经过base64编码后保存起来(存放到redis或则其他数据库中),
     当下次需要时提取出来base64解码再反序列化为Python对象
 """
-class myPickle():
-    
+class MyPickle(object):
+
     #将一个Python对象序列化为字符串
-    def dumps(self,obj):
+    def dumps(self, obj):
         try:
-            s = pickle.dumps(obj)
-#            print(s,type(s))
-            return s
-        except Exception as e:
-            print("dumps occure a Exception:{}".format(e))
+            dump_str = pickle.dumps(obj)
+            return dump_str
+        except Exception as exp:
+            print("dumps occure a Exception:{}".format(exp))
             return None
 
     #将字符串反序列化为Python对象
-    def loads(self,s):
+    def loads(self, source_str):
         try:
-            obj = pickle.loads(s)
-#            print obj,type(obj)
+            obj = pickle.loads(source_str)
             return obj
-        except Exception as e:
-            print("loads occure a Exception:{}".format(e))
+        except Exception as exp:
+            print("loads occure a Exception:{}".format(exp))
             return None
 
 if __name__ == "__main__":
     from mybase64 import myBase64
-    p = myPickle()
-    l = [1,2,3,4,"sraf"]
+    p = MyPickle()
+    l = [1, 2, 3, 4, "sraf"]
     import requests
 #    a = requests.session()
     s = p.dumps(l)

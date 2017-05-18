@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding=utf-8
-from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
+from Crypto.Cipher import AES
 
 """
     使用pycrypto模块进行加密和解密 对称加密:AES
     链接一旦便多，这种机制将很难管理大量的key
 """
-class myCrypt():
+class MyCrypt(object):
     def __init__(self, key):
         self.key = key
         self.mode = AES.MODE_CBC
@@ -20,10 +20,10 @@ class myCrypt():
         count = len(text)
         add = length - (count % length)
         text = text + ('\0' * add)
-        self.ciphertext = cryptor.encrypt(text)
+        ciphertext = cryptor.encrypt(text)
         #因为AES加密时候得到的字符串不一定是ascii字符集的，输出到终端或者保存时候可能存在问题
         #所以这里统一把加密后的字符串转化为16进制字符串
-        return b2a_hex(self.ciphertext)
+        return b2a_hex(ciphertext)
 
     #解密后，去掉补足的空格用strip() 去掉
     def decrypt(self, text):
@@ -32,7 +32,7 @@ class myCrypt():
         return plain_text.rstrip('\0')
 
 if __name__ == '__main__':
-    pc = myCrypt('keyskeyskeyskeys')      #初始化密钥
+    pc = MyCrypt('keyskeyskeyskeys')      #初始化密钥
     e = pc.encrypt("test")
     d = pc.decrypt(e)
     print(e, d)

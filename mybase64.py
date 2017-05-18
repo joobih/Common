@@ -8,19 +8,19 @@ import base64
 """
 def b64encode(s):
     try:
-        b64 = base64.b64encode(s)
-        return b64
-    except Exception as e:
-        print("b64encode occure a Exception:{}".format(e))
+        encode_str = base64.b64encode(s)
+        return encode_str
+    except Exception as exp:
+        print("b64encode occure a Exception:{}".format(exp))
         return None
 
 #将b64 通过base64解码
 def b64decode(b64):
     try:
-        s = base64.b64decode(b64)
-        return s
-    except Exception as e:
-        print("b64decode occure a Exception:{}".format(e))
+        decode_str = base64.b64decode(b64)
+        return decode_str
+    except Exception as exp:
+        print("b64decode occure a Exception:{}".format(exp))
         return None
 
 #if __name__ == "__main__":
