@@ -1,47 +1,46 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import pika
 import multiprocessing
+import pika
 
 """
     rabbitmq 消费者,接受指定topic中的数据，子类通过继承它才能够使用，只需实现data_process函数进行数据的处理
 """
 class RQConsumer(object):
-    def __init__(self,rq_queue,rq_host="127.0.0.1",rq_port=5672,kwags={}):
+    def __init__(self, rq_queue, rq_host="127.0.0.1", rq_port=5672, kwags={}):
         try:
             #连接rabbit
-            connection = pika.BlockingConnection(pika.ConnectionParameters(rq_host,int(rq_port)))
+            connection = pika.BlockingConnection(pika.ConnectionParameters(rq_host, int(rq_port)))
             self.channel = connection.channel()
-            self.channel.basic_qos(prefetch_count = 1)
+            self.channel.basic_qos(prefetch_count=1)
             #如果没有队列就创建
-            self.channel.queue_declare(queue = rq_queue,durable = True)
+            self.channel.queue_declare(queue=rq_queue, durable=True)
             self.queue = rq_queue
-        except Exception as e:
-            print("RQConsumer __init__ occure a Exception:{}".format(e))
+        except Exception as exp:
+            print("RQConsumer __init__ occure a Exception:{}".format(exp))
             return
 
     """
         data 为一个rabbitmq队列中的消息，子类通过继承该函数自行处理该数据
     """
-    def data_process(self,data):
+    def data_process(self, data):
         raise NotImplementedError()
 
     #接收消息的回调函数
-    def callback(self,ch,method,properties,body):
+    def callback(self, channel, method, properties, body):
         try:
-#            print("Process is running at pid %s;data:%s" % (os.getpid(),body))
             self.data_process(body)
             #消息处理完成可以通知到队列完成了处理
-            ch.basic_ack(delivery_tag = method.delivery_tag)
+            channel.basic_ack(delivery_tag=method.delivery_tag)
             #在此处理每条消息
 
-        except Exception as e:
-            print("occure a Exception:{}".format(e))
-    
-    def start(self,_call_back):
+        except Exception as exp:
+            print("occure a Exception:{}".format(exp))
+
+    def start(self, _call_back):
         print("start consumer...")
-        self.channel.basic_consume(_call_back,queue = self.queue)
+        self.channel.basic_consume(_call_back, queue=self.queue)
         self.channel.start_consuming()
 
 """

@@ -49,12 +49,13 @@ def main():
     t = time.time()
     url = {"url":"http://www.baidu.com", "html_type":"txt"}
     url = {"url":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1495018130624&di=3ea1524ee141d1b869709fc82cf73306&imgtype=0&src=http%3A%2F%2Fwww.jahuaxia.cn%2Fupload%2Fimg%2F9YSLg4QbxNCw3hfPpivZN53vLogHuuYfoXs1UnAbXwxUUY69aWN1MQjWOMyWqWOnNfOQFAKVnd9kU0JwyVFvVto9uyyJpKV5S9FYCgox%2F3zyqNdTzA.jpg","html_type":"pic"}
+    url = {"url":"https://zhibo.sogou.com/search.whtml?query=+&tag=1&f=0","html_type":"txt"}
     url_infos = []
     for u in range(0, 20):
         url_infos.append(url)
     result = async_spider(url_infos)
-    #for r in result:
-    #    print(r)
+    for r in result:
+        print(r)
     b = time.time()
     print(b-t)
 
