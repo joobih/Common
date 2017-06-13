@@ -8,7 +8,7 @@ import pika
     rabbitmq 消费者,接受指定topic中的数据，子类通过继承它才能够使用，只需实现data_process函数进行数据的处理
 """
 class RQConsumer(object):
-    def __init__(self, rq_queue, rq_host="127.0.0.1", rq_port=5672, kwags={}):
+    def __init__(self, rq_queue, rq_host="127.0.0.1", rq_port=5672, kwags=None):
         try:
             #连接rabbit
             connection = pika.BlockingConnection(pika.ConnectionParameters(rq_host, int(rq_port)))
@@ -28,7 +28,7 @@ class RQConsumer(object):
         raise NotImplementedError()
 
     #接收消息的回调函数
-    def callback(self, channel, method, properties, body):
+    def callback(self, channel, method, _properties, body):
         try:
             self.data_process(body)
             #消息处理完成可以通知到队列完成了处理
@@ -52,8 +52,8 @@ class RQConsumer(object):
         rq_queue: rabbitmq的消息队列名
         kwags: 可变参数
 """
-def TestConsumer(Consumer,rq_queue,rq_host,rq_port,kwags={}):
-    consumer = Consumer(rq_queue,rq_host,rq_port,kwags)
+def TestConsumer(Consumer, rq_queue, rq_host, rq_port, kwags=None):
+    consumer = Consumer(rq_queue, rq_host, rq_port, kwags)
     consumer.start(consumer.callback)
 
 """
@@ -66,17 +66,17 @@ def TestConsumer(Consumer,rq_queue,rq_host,rq_port,kwags={}):
         process_num: 开启的进程数量，默认以机器支持的cpu个数为参数
         kwags: 可变参数
 """
-def multi_consumer(Consumer,rq_queue,rq_host,rq_port,process_num = 0,kwags = {}):
+def multi_consumer(Consumer, rq_queue, rq_host, rq_port, process_num=0, kwags=None):
     try:
         p = multiprocessing.cpu_count()
         if process_num != 0:
             p = process_num
-        pool = multiprocessing.Pool(processes = p)
+        pool = multiprocessing.Pool(processes=p)
         for i in xrange(p):
-            pool.apply_async(TestConsumer,(Consumer,rq_queue,rq_host,rq_port,kwags))
+            pool.apply_async(TestConsumer, (Consumer, rq_queue, rq_host, rq_port, kwags))
         pool.close()
         pool.join()
         print("done")
     except Exception as e:
-        print("Caught KeyboardInterrupt, terminating workers",e)
+        print("Caught KeyboardInterrupt, terminating workers", e)
         return
