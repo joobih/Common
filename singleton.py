@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from functools import wraps
-
 def singleton(cls):
     instance = {}
     def _singleton(*args, **kw):
