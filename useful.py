@@ -79,3 +79,13 @@ def get_randints(start, end, n):
     if n > end - start:
         return data
     return data[:n]
+
+
+"""
+    将html标签去掉
+"""
+def delete_tags(content):
+    pattern = r"<[^>]*>"
+    compiler = re.compile(pattern)
+    new_text = re.subn(compiler, "", content)
+    return new_text
