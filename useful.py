@@ -89,3 +89,16 @@ def delete_tags(content):
     compiler = re.compile(pattern)
     new_text = re.subn(compiler, "", content)
     return new_text
+
+
+"""
+    从SimpleCookie中解析成字典
+"""
+def parser_cookies(cookie):
+    cookies = {}
+    for k, v in cookie.items():
+        c = str(v)
+        c = c.replace("Set-Cookie: ", "").replace("HttpOnly;","").replace(" ", "")
+        cookie_dict = dict((line.split('=') for line in c.strip().split(";")))
+        cookies = dict(cookies, **cookie_dict)
+    return cookies
